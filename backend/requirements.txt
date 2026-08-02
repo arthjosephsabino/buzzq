@@ -4,7 +4,7 @@ sqlalchemy
 pydantic
 python-dotenv
 alembic
-pydantic-setings
+pydantic-settings
 python-multipart
 qrcode
 pillow

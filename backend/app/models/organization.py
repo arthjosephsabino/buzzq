@@ -1,7 +1,8 @@
 import uuid
 from sqlalchemy import Column, UUID, DateTime, String, func
+from app.db.base import Base
 
-class Organization():
+class Organization(Base):
     __tablename__ = "organizations"
 
     id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
