@@ -9,6 +9,11 @@ class PersonnelCreate(BaseModel):
     role: PersonnelRole = PersonnelRole.STAFF
 
 class PersonnelResponse(BaseModel):
+    id: UUID
+    organization_id: UUID
+    role: PersonnelRole
     name: str
     created_at: datetime
     updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

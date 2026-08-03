@@ -1,7 +1,7 @@
 from uuid import UUID
 from datetime import datetime
-from pydantic import BaseModel
-from app.schemas.queue_entry import QueueEntryResponse, ConfigDict
+from pydantic import BaseModel, ConfigDict
+from app.schemas.queue_entry import QueueEntryResponse
 
 class ClientCreate(BaseModel):
     name: str
