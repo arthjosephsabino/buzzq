@@ -12,6 +12,6 @@ class QueueEntryStatus(str, enum.Enum):
     CUT_OFF = "CUT_OFF"
     DONE = "DONE"
     
-class OrganizationMemberRole(str, enum.Enum):
+class PersonnelRole(str, enum.Enum):
     OWNER = "OWNER"
     STAFF = "STAFF"

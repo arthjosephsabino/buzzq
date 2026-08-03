@@ -1,0 +1,16 @@
+from uuid import UUID
+from pydantic import BaseModel
+from datetime import datetime
+from app.models.enums import QueueEntryStatus
+
+class QueueEntryCreate(BaseModel):
+    client_id: UUID
+    queue_id: UUID
+
+class QueueEntryResponse(BaseModel):
+    client_id: UUID
+    queue_id: UUID
+    ticket_number: str
+    status: QueueEntryStatus
+    created_at: datetime
+    updated_at: datetime
