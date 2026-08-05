@@ -13,7 +13,7 @@ class QueueEntry(Base):
     ticket_number = Column(String, nullable=False)
     status = Column(Enum(QueueEntryStatus), default=QueueEntryStatus.NEW)
     created_at = Column(DateTime, server_default=func.now())
-    updated_at = Column(DateTime, onupdate=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
     # relationships
     queue = relationship("Queue", foreign_keys=[queue_id], back_populates="queue_entries")

@@ -12,7 +12,7 @@ class Queue(Base):
     name = Column(String, nullable=False)
     status = Column(Enum(QueueStatus), default=QueueStatus.NEW)
     created_at = Column(DateTime, server_default=func.now())
-    updated_at = Column(DateTime, onupdate=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
     # relationships
     queue_entries = relationship("QueueEntry", back_populates="queue")
