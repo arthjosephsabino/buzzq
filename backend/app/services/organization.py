@@ -5,15 +5,13 @@ from sqlalchemy.orm import Session
 from app.repositories.organization import OrganizationRepository
 from app.models.organization import Organization
 from app.schemas.organization import OrganizationCreate
+from app.models import Personnel
 
 
 class OrganizationService:
     def __init__(self, session: Session) -> None:
         self._session = session
         self._repo = OrganizationRepository(session)
-
-    def get_by_id(self, organization_id: UUID) -> Organization | None:
-        return self._repo.get_by_id(organization_id)
 
     def create(self, organization: OrganizationCreate) -> Organization:
         if organization.name == "" or organization is None:
@@ -33,4 +31,13 @@ class OrganizationService:
         new_organization = Organization(name=new_name)
 
         return self._repo.create(new_organization)
+
+    def get_by_id(self, organization_id: UUID) -> Organization | None:
+        return self._repo.get_by_id(organization_id)
+
+    def get_org_personnel(self, organization_id: UUID) -> list[Personnel]:
+        return self._repo.get_org_personnel(organization_id)
+
+    def get_all_organizations(self) -> list[Organization]:
+        return self._repo.get_all_organizations()
         
