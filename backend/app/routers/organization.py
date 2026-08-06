@@ -28,7 +28,7 @@ def create_organization(
     response_model=OrganizationResponse
 )
 def get_organization_by_id(
-    id: UUID,
+    organization_id: UUID,
     db: OrganizationService = Depends(get_organization_service)
 ):
-    return db.get_by_id(id)
+    return db.get_by_id(organization_id)

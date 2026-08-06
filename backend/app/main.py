@@ -5,6 +5,8 @@ from app.db.base import Base
 from app.db.session import engine, get_db
 
 from app.routers.organization import router as organization_router
+from app.routers.personnel import router as personnel_router
+
 import app.models
 
 app = FastAPI()
@@ -22,3 +24,4 @@ def db_health(db: Session = Depends(get_db)):
     return {"db": "ok"}
 
 app.include_router(organization_router)
+app.include_router(personnel_router)
