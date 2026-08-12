@@ -6,7 +6,6 @@ from app.schemas.queue_entry import QueueEntryResponse
 class ClientCreate(BaseModel):
     name: str
     phone: str
-    organization_id: UUID
 
 class ClientResponse(BaseModel):
     id: UUID
