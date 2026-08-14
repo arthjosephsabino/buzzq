@@ -20,7 +20,7 @@ class QueueRepository:
     def get_by_id(self, queue_id: UUID) -> Queue | None:
         return self._session.get(Queue, queue_id)
 
-    def allocate_next_ticket(self, queue_id: UUID) -> str | None:
+    def allocate_next_ticket(self, queue_id: UUID) -> tuple[str, int] | None:
         stmt = (
             select(Queue).where(
                 and_(
@@ -39,7 +39,7 @@ class QueueRepository:
         number = queue.next_ticket_number
         ticket = f"{queue.ticket_prefix}{number:03d}"
         queue.next_ticket_number = number + 1
-        return ticket
+        return ticket, number
 
     def get_all_queues(self) -> list[Queue]:
         stmt = select(Queue)

@@ -40,3 +40,15 @@ def get_by_id(
 )
 def get_all_queue_entries(db: QueueEntryService = Depends(get_queue_entry_service)):
     return db.get_all_queue_entries()
+
+@router.get(
+    "/{queue_entry_id}/progress-all",
+    status_code=status.HTTP_200_OK,
+    response_model=list[QueueEntryResponse]
+)
+def get_queue_entry_progress_all(
+    queue_entry_id: UUID,
+    db: QueueEntryService = Depends(get_queue_entry_service)
+):
+    return db.get_queue_entry_progress_all(queue_entry_id)
+

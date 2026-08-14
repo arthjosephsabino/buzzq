@@ -8,9 +8,11 @@ class QueueEntryCreate(BaseModel):
     queue_id: UUID
 
 class QueueEntryResponse(BaseModel):
+    id: UUID
     client_id: UUID
     queue_id: UUID
     ticket_number: str
+    ticket_order: int
     status: QueueEntryStatus
     created_at: datetime
     updated_at: datetime

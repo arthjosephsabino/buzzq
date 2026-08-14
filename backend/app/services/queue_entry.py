@@ -24,18 +24,21 @@ class QueueEntryService:
                 status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 description="Queue ID is required."
             )
-        ticket = self._queue_repo.allocate_next_ticket(queue_entry.queue_id)
-        if ticket is None:
+        result = self._queue_repo.allocate_next_ticket(queue_entry.queue_id)
+        if result is None:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 description="Queue is inactive."
 
             )
         
+        ticket, order = result
+        
         new_queue_entry = QueueEntry(
             client_id = queue_entry.client_id,
             queue_id = queue_entry.queue_id,
-            ticket_number = ticket
+            ticket_number = ticket,
+            ticket_order = order
 
         )
         return self._entry_repo.create(new_queue_entry)
@@ -51,3 +54,9 @@ class QueueEntryService:
 
     def get_all_queue_entries(self) -> list[QueueEntry]:
         return self._entry_repo.get_all_queue_entries()
+
+    def get_queue_entry_progress_all(self, queue_entry_id: UUID) -> list[QueueEntry]:
+        return self._entry_repo.get_queue_entry_progress_all(queue_entry_id)
+
+    def get_queue_entry_progress(self, queue_entry_id: UUID) -> list[QueueEntry]:
+        return self._entry_repo.get_queue_entry_progress(queue_entry_id)
