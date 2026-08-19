@@ -8,6 +8,8 @@ class Personnel(Base):
     __tablename__ = "personnel"
 
     id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
+    username = Column(String, nullable=False)
+    password = Column(String, nullable=False)
     organization_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
     name =  Column(String, nullable=False)
     role = Column(Enum(PersonnelRole), default=PersonnelRole.STAFF)

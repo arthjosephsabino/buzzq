@@ -1,14 +1,16 @@
+from typing import Annotated
 from uuid import UUID
 from fastapi import APIRouter, Depends, status
 
 from app.schemas.personnel import PersonnelCreate, PersonnelResponse
-from app.dependencies import get_personnel_service
+from app.core.dependencies import get_current_active_admin_or_personnel, get_personnel_service
 from app.services.personnel import PersonnelService
 
 
 router = APIRouter(
     prefix="/personnel",
-    tags=["personnel"]
+    tags=["personnel"],
+    dependencies=[Depends(get_current_active_admin_or_personnel)]
 )
 
 @router.post(
@@ -18,7 +20,7 @@ router = APIRouter(
 )
 def create(
     payload: PersonnelCreate,
-    db: PersonnelService = Depends(get_personnel_service)
+    db: Annotated[PersonnelService, Depends(get_personnel_service)]
 ):
     return db.create(payload)
 
@@ -29,7 +31,7 @@ def create(
 )
 def get_by_id(
     personnel_id: UUID,
-    db: PersonnelService = Depends(get_personnel_service)
+    db: Annotated[PersonnelService, Depends(get_personnel_service)]
 ):
     return db.get_by_id(personnel_id)
 

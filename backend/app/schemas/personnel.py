@@ -6,6 +6,8 @@ from app.models.enums import PersonnelRole
 class PersonnelCreate(BaseModel):
     organization_id: UUID
     name: str
+    username: str
+    password: str
     role: PersonnelRole = PersonnelRole.STAFF
 
 class PersonnelResponse(BaseModel):
@@ -13,6 +15,7 @@ class PersonnelResponse(BaseModel):
     organization_id: UUID
     role: PersonnelRole
     name: str
+    username: str
     created_at: datetime
     updated_at: datetime
 

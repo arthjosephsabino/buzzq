@@ -12,6 +12,11 @@ class PersonnelRepository:
     def get_by_id(self, personnel_id: UUID) -> Personnel | None:
         return self._session.get(Personnel, personnel_id)
 
+    def get_personnel_by_username(self, username: str) -> Personnel | None:
+        stmt = select(Personnel).where(Personnel.username == username)
+        personnel = self._session.scalar(stmt)
+        return personnel
+
     def create(self, personnel: Personnel) -> Personnel:
         self._session.add(personnel)
         self._session.commit()

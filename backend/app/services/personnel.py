@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.repositories.personnel import PersonnelRepository
 from app.models import Personnel
 from app.schemas.personnel import PersonnelCreate
+from app.utils.password import get_password_hash
 
 
 class PersonnelService:
@@ -29,6 +30,8 @@ class PersonnelService:
         new_personnel = Personnel(
             organization_id=payload.organization_id,
             name=payload.name,
+            username=payload.username,
+            password=get_password_hash(payload.password),
             role=payload.role
         )
 

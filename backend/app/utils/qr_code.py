@@ -1,7 +1,7 @@
 import io
 import qrcode
 
-from app.config import settings
+from app.core.config import settings
 
 def generate_qr_code(id: str): 
     scan_url = f"{settings.QR_CODE_BASE_URL.rstrip('/')}/{id}/join"

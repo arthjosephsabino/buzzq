@@ -13,3 +13,7 @@ psycopg2-binary
 # code QOL
 ruff
 mypy
+
+# auth, jwt, bcrypt
+PyJWT
+bcrypt>=4.2.0

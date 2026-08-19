@@ -3,9 +3,8 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.repositories.client import ClientRepository
-from app.models import Client
+from app.models.client import Client
 from app.schemas.client import ClientCreate
-
 
 class ClientService:
 
