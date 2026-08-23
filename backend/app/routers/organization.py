@@ -3,12 +3,13 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, status
 from app.schemas.organization import OrganizationResponse, OrganizationCreate
 from app.services.organization import OrganizationService
-from app.core.dependencies import get_organization_service
+from app.core.dependencies import get_current_active_admin_or_personnel, get_organization_service
 from app.schemas.personnel import PersonnelResponse
 
 router = APIRouter(
     prefix="/organizations",
-    tags=["organizations"]
+    tags=["organizations"],
+    dependencies=[Depends(get_current_active_admin_or_personnel)]
 )
 
 @router.post(

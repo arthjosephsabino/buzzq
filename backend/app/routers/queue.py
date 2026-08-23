@@ -3,13 +3,14 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Response, HTTPException, status
 
 from app.schemas.queue import QueueCreate, QueueResponse
-from app.core.dependencies import get_queue_service
+from app.core.dependencies import get_current_active_admin_or_personnel, get_queue_service
 from app.services.queue import QueueService
 
 
 router = APIRouter(
     prefix="/queue",
-    tags=["queue"]
+    tags=["queue"],
+    dependencies=[Depends(get_current_active_admin_or_personnel)]
 )
 
 @router.post(

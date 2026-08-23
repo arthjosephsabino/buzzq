@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, status
 
 from app.schemas.queue_entry import QueueEntryCreate, QueueEntryResponse
 from app.services.queue_entry import QueueEntryService
-from app.core.dependencies import get_queue_entry_service
+from app.core.dependencies import get_current_active_admin_or_personnel, get_queue_entry_service
 
 
 router = APIRouter(
@@ -15,7 +15,8 @@ router = APIRouter(
 @router.post(
     "",
     status_code=status.HTTP_201_CREATED,
-    response_model=QueueEntryResponse
+    response_model=QueueEntryResponse,
+    dependencies=[Depends(get_current_active_admin_or_personnel)]
 )
 def create(
     payload: QueueEntryCreate,
@@ -37,7 +38,8 @@ def get_by_id(
 @router.get(
     "",
     status_code=status.HTTP_200_OK,
-    response_model=list[QueueEntryResponse]
+    response_model=list[QueueEntryResponse],
+    dependencies=[Depends(get_current_active_admin_or_personnel)]
 )
 def get_all_queue_entries(db: Annotated[QueueEntryService, Depends(get_queue_entry_service)]):
     return db.get_all_queue_entries()

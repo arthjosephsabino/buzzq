@@ -4,13 +4,14 @@ from fastapi import APIRouter, Depends, status
 from starlette.status import HTTP_200_OK
 
 from app.schemas.client import ClientCreate, ClientResponse
-from app.core.dependencies import get_client_service
+from app.core.dependencies import get_client_service, get_current_active_admin_or_personnel
 from app.services.client import ClientService
 
 
 router = APIRouter(
     prefix="/clients",
-    tags=["clients"]
+    tags=["clients"],
+    dependencies=[Depends(get_current_active_admin_or_personnel)]
 )
 
 @router.post(
