@@ -1,7 +1,6 @@
 from typing import Annotated
 from uuid import UUID
 from fastapi import APIRouter, Depends, status
-from starlette.status import HTTP_200_OK
 
 from app.schemas.client import ClientCreate, ClientResponse
 from app.core.dependencies import get_client_service, get_current_active_admin_or_personnel
@@ -27,7 +26,7 @@ def create(
 
 @router.get(
     "/{client_id}",
-    status_code=HTTP_200_OK,
+    status_code=status.HTTP_200_OK,
     response_model=ClientResponse
 )
 def get_by_id(
@@ -39,7 +38,7 @@ def get_by_id(
 
 @router.get(
     "",
-    status_code=HTTP_200_OK,
+    status_code=status.HTTP_200_OK,
     response_model=list[ClientResponse]
 )
 def get_all_clients(db: Annotated[ClientService, Depends(get_client_service)]):
